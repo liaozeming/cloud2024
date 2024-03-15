@@ -3,12 +3,13 @@ package com.lzm.cloud.controller;
 import com.lzm.cloud.entities.PayDTO;
 import com.lzm.cloud.resp.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class OrderController{
-    public static final String PaymentSrv_URL = "http://localhost:8001";//先写死，硬编码
+    public static final String PaymentSrv_URL = "http://cloud-payment-service";//服务注册中心上的微服务名称    @Autowired
     @Autowired
     private RestTemplate restTemplate;
 
@@ -27,6 +28,12 @@ public class OrderController{
     @GetMapping("/consumer/pay/get/{id}")
     public ResultData getPayInfo(@PathVariable("id") Integer id){
         return restTemplate.getForObject(PaymentSrv_URL + "/pay/get/"+id, ResultData.class, id);
+    }
+
+    @GetMapping(value = "/pay/get/info")
+    private String getInfoByConsul(@Value("${lzm.info}") String lzm)
+    {
+        return "lzm: "+lzm+"\t";
     }
 
 
