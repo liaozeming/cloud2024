@@ -30,11 +30,10 @@ public class OrderController{
         return restTemplate.getForObject(PaymentSrv_URL + "/pay/get/"+id, ResultData.class, id);
     }
 
-    @GetMapping(value = "/pay/get/info")
-    private String getInfoByConsul(@Value("${lzm.info}") String lzm)
+    @GetMapping(value = "/consumer/pay/get/info")
+    private String getInfoByConsul()
     {
-        return "lzm: "+lzm+"\t";
+        return restTemplate.getForObject(PaymentSrv_URL + "/pay/get/info", String.class);
     }
-
 
 }
