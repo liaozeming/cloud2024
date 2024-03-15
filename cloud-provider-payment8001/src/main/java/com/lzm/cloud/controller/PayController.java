@@ -1,5 +1,6 @@
 package com.lzm.cloud.controller;
 
+import com.lzm.cloud.apis.PayFeignApi;
 import com.lzm.cloud.entities.Pay;
 import com.lzm.cloud.entities.PayDTO;
 import com.lzm.cloud.resp.ResultData;
@@ -44,7 +45,8 @@ public class PayController {
 
     @GetMapping(value = "/pay/get/{id}")
     @Operation(summary = "按照ID查流水", description = "查询支付流水方法")
-    public ResultData<Pay> getById(@PathVariable("id") Integer id) {
+    public ResultData<Pay> getById(@PathVariable("id") Integer id) throws InterruptedException {
+        Thread.sleep(10000); //测试重试
         if (id < 0) {
             return ResultData.fail("404", "fail");
         }
@@ -56,9 +58,8 @@ public class PayController {
     private String port;
 
     @GetMapping(value = "/pay/get/info")
-    private String getInfoByConsul(@Value("${lzm.info}") String lzm)
-    {
-        return "lzm: "+lzm+"\t"+"port: "+port;
+    private String getInfoByConsul(@Value("${lzm.info}") String lzm) {
+        return "lzm: " + lzm + "\t" + "port: " + port;
     }
 }
 
