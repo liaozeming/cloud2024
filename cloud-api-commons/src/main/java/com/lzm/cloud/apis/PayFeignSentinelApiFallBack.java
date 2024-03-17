@@ -4,10 +4,7 @@ import com.lzm.cloud.resp.ResultData;
 import com.lzm.cloud.resp.ReturnCodeEnum;
 import org.springframework.stereotype.Component;
 
-/**
- * @auther zzyy
- * @create 2024-01-05 13:07
- */
+
 @Component
 public class PayFeignSentinelApiFallBack implements PayFeignSentinelApi
 {
